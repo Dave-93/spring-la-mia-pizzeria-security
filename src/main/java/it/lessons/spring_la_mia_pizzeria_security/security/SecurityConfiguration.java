@@ -24,7 +24,9 @@ public class SecurityConfiguration {
             .requestMatchers("/**").permitAll()//tutto il resto  possono tutti (senza non è possibile effettuare nemmeno il login)
             .requestMatchers("/static/**").permitAll()
             .and().formLogin()
-            .and().logout();
+            .and().logout()
+            .and().exceptionHandling()//*disattiva autenticazione per API*/
+            .and().csrf().disable();//*disattiva autenticazione per API*/
 
         return http.build();
     }

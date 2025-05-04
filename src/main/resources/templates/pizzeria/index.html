@@ -18,6 +18,8 @@
                 Role: <span sec:authentication="principal.authorities" class="me-2 fw-bold"></span>
                 <a class="btn btn-danger" href="/logout">LOGOUT</a>
             </div>
+            <!-- Saluto Utente-->
+            <h4 class="text-center text-danger" th:text="|Ciao ${username}!|"></h4>
             <!---->
 
             <div th:if="${list.isEmpty()}">
@@ -53,10 +55,10 @@
                             <th>
                                 <!-- spazio per il dettaglio-->
                             </th>
-                            <th>
+                            <th sec:authorize="hasAuthority('ADMIN')">
                                 <!-- spazio per la modifica-->
                             </th>
-                            <th>
+                            <th sec:authorize="hasAuthority('ADMIN')">
                                 <!-- spazio per la cancellazione-->
                             </th>
                         </tr>
@@ -72,14 +74,14 @@
                             <td>
                                 <img th:src="${pizza.foto}" class="text-center" alt="foto pizza">
                             </td>
-                            <td class="px-1 align-middle">
+                            <td class="px-1 align-middle text-center">
                                 <a class="btn btn-primary" th:href="@{|/pizzeria/dettaglio/${pizza.id}|}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                                     </svg>
                                 </a>
                             </td>
-                            <td class="px-1 align-middle" sec:authorize="hasAuthority('ADMIN')">
+                            <td class="px-1 align-middle text-center" sec:authorize="hasAuthority('ADMIN')">
                                 <a class="btn btn-primary" th:href="@{|/pizzeria/modifica/${pizza.id}|}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-pencil" viewBox="0 0 16 16">
@@ -88,7 +90,7 @@
                                     </svg>
                                 </a>
                             </td>
-                            <td class="px-1 align-middle" sec:authorize="hasAuthority('ADMIN')">
+                            <td class="px-1 align-middle text-center" sec:authorize="hasAuthority('ADMIN')">
                                 <form action="#" th:action="@{'/pizzeria/cancella/{id}'(id=${pizza.id})}" method="post">
                                     <button class="btn btn-danger" type="submit" id="submitButton" onclick="return confirm('Sei sicuro?')">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">

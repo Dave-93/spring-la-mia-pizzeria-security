@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,9 +47,9 @@ public class PizzaController {
     }
 
     @GetMapping
-    public String elenco(Model model, String nome) {
-        //List<Pizza> listaPizze = pizzaRepository.findAll();
+    public String elenco(Authentication authentication, Model model, String nome) {
         model.addAttribute("list", pizzaSer.findAll(nome));
+        model.addAttribute("username", authentication.getName());
         return "pizzeria/index";
     }
 
